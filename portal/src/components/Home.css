@@ -1,0 +1,7 @@
+.box_header {
+    box-sizing: border-box;
+    width: 100vw;
+    height: 38.5rem;
+    background: rgba(255, 255, 255, 0.39);
+    border: 1px solid #807B7B;
+}
