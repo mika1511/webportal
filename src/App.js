@@ -151,10 +151,10 @@ function App() {
     
     <Router>
       <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
         <Routes>
           <Route exact path="/" Component={HomeScreen}/>
-          <Route exact path="OnlineTest" Component={OnlineTestSeries}/>
+          <Route exact path="online_test_series" Component={OnlineTestSeries}/>
         </Routes>
       </div>
     </Router>
