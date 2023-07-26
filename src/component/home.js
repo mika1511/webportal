@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState("");
 
@@ -64,7 +63,7 @@ export default function HomeScreen() {
           overflowX: "hidden",
           flex: 1,
           //backgroundColor: "#D1E6F9",
-          backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)"
+          backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)",
         }}
       >
         <div className="box_header" style={{}}>
@@ -162,7 +161,7 @@ export default function HomeScreen() {
             position: "relative",
           }}
         >
-          <img src={sstc} width={1600} height={700}></img>
+          <img src={sstc} width="100%" height={700}></img>
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -198,37 +197,37 @@ export default function HomeScreen() {
             marginLeft: -30,
           }}
         >
-          <span style={{ fontSize: 30, fontWeight: "bold" }}>
-            Welcome to the Computer Science and Engineering Department of SSTC
-          </span>
+          <div style={{}}>
+            <span style={{ fontSize: 30, fontWeight: "bold" }}>
+              Welcome to the Computer Science and Engineering Department of SSTC
+            </span>
+
+            <div
+              style={{
+                width: "100%",
+                marginLeft: "3vw",
+              }}
+            >
+              <p
+                style={{
+                  backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)",
+                  // backgroundColor: "#E5f3fd",
+                  borderRadius: 20,
+                  fontSize: 25,
+                }}
+              >
+                {
+                  " The department of Computer Science and Engineering at the Shri shankaracharya technical campus promotes innovation-centric education and performs cutting-edge research. The department continuously endeavors to create and sustain an academic environment conducive to the highest level of research and teaching. The goal is to develop human resources with sound knowledge of theoretical, systems, and application aspects of Computer Science & Engineering. The department also facilitates the development of academia-industry collaborations and societal outreach activities. "
+                }
+              </p>
+            </div>
+          </div>
           <img
             style={{
               marginLeft: 80,
             }}
             src={sideimg}
-            
           ></img>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            width: "40%",
-            textAlign: "center",
-            marginTop: -800,
-            marginLeft: 40,
-          }}
-        >
-          <p
-            style={{
-              backgroundColor: "#E5f3fd",
-              borderRadius: 20,
-              fontSize: 25,
-            }}
-          >
-            {
-              " The department of Computer Science and Engineering at the Shri shankaracharya technical campus promotes innovation-centric education and performs cutting-edge research. The department continuously endeavors to create and sustain an academic environment conducive to the highest level of research and teaching. The goal is to develop human resources with sound knowledge of theoretical, systems, and application aspects of Computer Science & Engineering. The department also facilitates the development of academia-industry collaborations and societal outreach activities. "
-            }
-          </p>
         </div>
       </div>
     );
@@ -506,8 +505,7 @@ export default function HomeScreen() {
         </div>
       </div>
     );
-  }
-  else if (activeTab == "faculty") {
+  } else if (activeTab == "faculty") {
     return (
       <div
         style={{
@@ -518,7 +516,7 @@ export default function HomeScreen() {
           backgroundColor: "#D1E6F9",
         }}
       >
-          <div className="box_header" style={{}}>
+        <div className="box_header" style={{}}>
           <img
             src={sstclogo}
             width={60}
@@ -609,10 +607,9 @@ export default function HomeScreen() {
           </div>
         </div>
         <text>FACULTY</text>
-        </div>
-    )
-  }
-  else if (activeTab == "access") {
+      </div>
+    );
+  } else if (activeTab == "access") {
     return (
       <div
         style={{
@@ -623,7 +620,7 @@ export default function HomeScreen() {
           backgroundColor: "#D1E6F9",
         }}
       >
-          <div className="box_header" style={{}}>
+        <div className="box_header" style={{}}>
           <img
             src={sstclogo}
             width={60}
@@ -715,6 +712,6 @@ export default function HomeScreen() {
         </div>
         <text>ACCESS</text>
       </div>
-    )
+    );
   }
 }
