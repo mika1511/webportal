@@ -440,6 +440,9 @@ export default function HomeScreen() {
                   width: "7vw",
                   color: "white",
                 }}
+                onClick={() => {
+                  navigate("online_test_series");
+                }}
               >
                 <text
                   style={{
