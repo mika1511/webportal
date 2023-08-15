@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import OnlineTestSeries from './component/onlineTestPage';
 import { useNavigate } from 'react-router-dom';
+import StdTestSeries from './component/stdTestPage';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState(null);
@@ -154,7 +155,8 @@ function App() {
       {/* <NavBar /> */}
         <Routes>
           <Route exact path="/" Component={HomeScreen}/>
-          <Route exact path="online_test_series" Component={OnlineTestSeries}/>
+          <Route exact path="testseries/admin" Component={OnlineTestSeries}/>
+          <Route exact path="testseries" Component={StdTestSeries} />
         </Routes>
       </div>
     </Router>

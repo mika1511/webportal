@@ -7,8 +7,39 @@ import sideimg from "./../sideimg.png";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+
+async function tryLogin(passwd) {
+  try {
+    const res = await axios.post("http://127.0.0.1:8080/login", 
+  {
+    "pwd": passwd
+  });
+  
+    return true;
+} catch(error) {
+    return error;
+  }
+}
+
+async function LoginFx(passwd) {
+  const res = await tryLogin(passwd);
+  if(res) {
+    return true;
+  }
+  return false;
+}
+
 
 export default function HomeScreen() {
+
+  const [inputPwd, setInputPwd] = useState("");
+
+  const handleInputPwd = (event) => {
+    setInputPwd(event.target.value);
+  };
+
   const [activeTab, setActiveTab] = useState("");
 
   const handleClick = (tab) => {
@@ -416,9 +447,10 @@ export default function HomeScreen() {
             >
               <text style={{ fontSize: 20, color: "white" }}>
                 <br></br>
-                <br></br>Enter Admin Password: <br></br>
+                <br></br>Enter Admin Password : <br></br>
               </text>
               <input
+              onChange={handleInputPwd}
                 style={{
                   height: "8vh",
                   width: "30vw",
@@ -428,6 +460,7 @@ export default function HomeScreen() {
                   borderRadius: 10,
                   fontSize: 22,
                   textAlign: "center",
+                  borderWidth: "0rem",
                 }}
               ></input>
               <text>
@@ -439,14 +472,25 @@ export default function HomeScreen() {
                   height: "5vh",
                   width: "7vw",
                   color: "white",
+                  backgroundColor: "white",
+                  borderRadius: "2rem",
+                  borderWidth: "0rem",
                 }}
                 onClick={() => {
-                  navigate("online_test_series");
+                 tryLogin(inputPwd).then((value) => {
+                  if(value === true) {
+                    navigate("/testseries/admin")
+                  }
+                  else {
+                    alert("Wrong Password For Admin.")
+                  }
+                 })
                 }}
               >
                 <text
                   style={{
                     color: "black",
+                    fontWeight: "bold",
                   }}
                 >
                   Login
@@ -464,7 +508,7 @@ export default function HomeScreen() {
             >
               <text style={{ fontSize: 20, color: "white" }}>
                 <br></br>
-                <br></br>Enter Your Roll Number:<br></br>
+                <br></br>Enter Your Roll Number :<br></br>
               </text>
 
               <input
@@ -477,6 +521,7 @@ export default function HomeScreen() {
                   borderRadius: 10,
                   fontSize: 22,
                   textAlign: "center",
+                  borderWidth: "0rem",
                 }}
               ></input>
 
@@ -490,14 +535,18 @@ export default function HomeScreen() {
                   height: "5vh",
                   width: "7vw",
                   color: "white",
+                  backgroundColor: "white",
+                  borderRadius: "3rem",
+                  borderWidth: "0rem",
                 }}
                 onClick={() => {
-                  navigate("online_test_series");
+                  navigate("testseries");
                 }}
               >
                 <text
                   style={{
                     color: "black",
+                    fontWeight: "bold",
                   }}
                 >
                   Start Test

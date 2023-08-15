@@ -1,31 +1,78 @@
 .sidebar_container {
-    width: 100%;
-    height: 4rem;
-    border-bottom: 0.5px solid white;
-    text-align: left;
-    
+  width: 100%;
+  height: 4rem;
+  border-bottom: 0.5px solid white;
+  text-align: left;
 }
 .sidebar_container1 {
-    width: 100%;
-    height: 5%;
+  width: 100%;
+  height: 5%;
 }
-    
+
 .qna_container {
-    width: 80rem;
-    height: 3rem;
-    border-radius: 10rem;
-    margin-right: 2rem;
-    border: 0px;
-    background-color: white;
+  width: 80rem;
+  height: 3rem;
+  border-radius: 10rem;
+  margin-right: 2rem;
+  border: 0px;
+  background-color: white;
 }
 input:focus {
-    outline:none;
+  outline: none;
 }
 .qna_container:focus {
-    background-color: rgb(233, 229, 225);
-  
-    outline:none;
+  background-color: rgb(233, 229, 225);
+
+  outline: none;
 }
 .qna_container:hover {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
+}
+
+@keyframes hovering_button {
+}
+
+.add_button {
+  width: 20rem;
+  height: 4rem;
+  background-color: white;
+  border-top-left-radius: 10rem;
+  border-bottom-left-radius: 10rem;
+  border-width: 0rem;
+  box-shadow: 5px 5px 5px grey;
+  font-weight: bold;
+  font-family: 'Segoe UI';
+}
+
+.save_button {
+    width: 20rem;
+    height: 4rem;
+    background-color: white;
+    border-top-right-radius: 10rem;
+    border-bottom-right-radius: 10rem;
+    border-width: 0rem;
+    box-shadow: 5px 5px 5px grey;
+    font-weight: bold;
+    font-family: 'Segoe UI';
+}
+
+@keyframes test {
+    from {
+        background-color: white;
+    }
+    50% {
+        text-decoration-line: underline;
+    }
+    to {
+        background-color: lightgrey;
+        text-decoration-line: underline;
+    }
+    
+}
+
+.add_button:hover, .save_button:hover {
+
+  animation: test 1000ms forwards; 
+  
+  
 }

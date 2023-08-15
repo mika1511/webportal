@@ -43,63 +43,59 @@ const QuizNameInput = ({ onCreate }) => {
   };
 
   return (
+    <div style={{
+      display: "grid"
+    }}>
     <div
       style={{
-        display: "grid",
+        marginLeft: "50rem",
+        marginTop: "10rem",
+        height: "16rem",
+        width: "60rem",
+        backgroundColor: "white",
+        boxShadow: "1px 2px 10px grey",
+        borderRadius: "1rem",
+        marginBottom: "2rem",
+        borderWidth: "0rem"
       }}
     >
-      <div
-        style={{
-          marginLeft: "50rem",
-          marginTop: "10rem",
-          height: "16rem",
-          width: "60rem",
-          backgroundColor: "white",
-          boxShadow: "1px 2px 10px grey",
-          borderRadius: "1rem",
-          marginBottom: "2rem",
-          borderWidth: "0rem",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "2.1rem",
-            fontWeight: "bold",
-          }}
-        >
-          PLEASE ENTER A QUIZ NAME
-        </span>
-        <input
-          type="text"
-          placeholder="Enter Quiz Name"
-          value={quizName}
-          onChange={(e) => setQuizName(e.target.value)}
-          style={{
-            textAlign: "center",
-            marginLeft: "-1rem",
-            marginTop: "3rem",
-            borderWidth: "0rem",
-            fontSize: "2rem",
-            width: "90%",
-            height: "30%",
-          }}
-        ></input>
-        <button
-          style={{
-            height: "3rem",
-            outlineColor: "white",
-            borderWidth: "0rem",
-            fontWeight: "bold",
-            marginTop: "1.1rem",
-            borderRadius: "10rem",
-            backgroundColor: "lightblue",
-            // marginRight: "45rem",
-          }}
-          onClick={handleCreateClick}
-        >
-          CREATE A QUIZ
-        </button>
-      </div>
+      <span style={{
+        fontSize: "2.1rem",
+        fontWeight: "bold",
+      }}>
+        PLEASE ENTER A QUIZ NAME
+      </span>
+      <input 
+      type="text"
+      placeholder="Enter Quiz Name"
+      value={quizName}
+      onChange={(e) => setQuizName(e.target.value)}
+      style={{
+        textAlign: "center",
+        marginLeft: "-1rem",
+        marginTop: "3rem",
+        borderWidth: "0rem",
+        fontSize: "2rem",
+        width: "90%",
+        height: "30%",
+      }}>
+      </input>
+      <button
+      style={{
+        height: "3rem",
+        outlineColor: "white",
+        borderWidth: "0rem",
+        fontWeight: "bold",
+        marginTop: "1.1rem",
+        borderRadius: "10rem",
+        backgroundColor: "lightblue",
+        // marginRight: "45rem",
+      }}
+      onClick={handleCreateClick}>
+        CREATE A QUIZ
+      </button>
+    </div>
+
     </div>
   );
 };
@@ -212,14 +208,11 @@ const CreateATest = function () {
     <div>
       {quizName ? (
         <div>
-          <h1
-            style={{
-              fontStyle: "italic",
-            }}
-          >
-            Quiz Name: {quizName}
-          </h1>
+          <h1 style={{
+            fontStyle: "italic"
+          }}>Quiz Name: {quizName}</h1>
           {questions.map((question, questionIndex) => (
+
             <div
               key={questionIndex}
               style={{
@@ -332,22 +325,8 @@ const CreateATest = function () {
             </div>
           ))}
 
-          <button
-            className="add_button"
-            onClick={addQuestion}
-            style={{
-              
-            }}
-          >
-            Add Question
-          </button>
-
-          <button
-            className="save_button"
-            onClick={saveToJson}
-          >
-            Save to JSON
-          </button>
+          <button onClick={addQuestion}>Add Question</button>
+          <button onClick={saveToJson}>Save to JSON</button>
         </div>
       ) : (
         <QuizNameInput onCreate={handleQuizCreate} />
@@ -365,7 +344,7 @@ const questionType = {
   String,
 };
 
-export default function OnlineTestSeries() {
+export default function StdTestSeries() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   const handleClick = (tab) => {
@@ -457,7 +436,7 @@ export default function OnlineTestSeries() {
           </span>
         </div>
 
-        <div
+        {/* <div
           className="sidebar_container"
           style={{
             //marginTop: "2vh",
@@ -509,8 +488,8 @@ export default function OnlineTestSeries() {
             }}
           >
             SEE RESULTS
-          </span>
-        </div>
+          </span> 
+        </div> */ }
       </div>
       {activeTabHandler(activeTab)}
     </div>
