@@ -38,3 +38,10 @@
     
     ;
   }
+  .ots{
+    background-color: black;
+    width: 20rem;
+    height: 10rem;
+    left: 30rem;
+    font-size: small;
+  }

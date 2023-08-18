@@ -76,3 +76,11 @@ input:focus {
   
   
 }
+.cross_button {
+  background-color: black;
+  box-shadow: 2px 2px 5px grey;
+}
+.cross_button:hover {
+  background-color: red;
+  box-shadow: 2px 2px 5px red;
+}

@@ -12,28 +12,25 @@ import { Navigate } from "react-router-dom";
 
 async function tryLogin(passwd) {
   try {
-    const res = await axios.post("http://127.0.0.1:8080/login", 
-  {
-    "pwd": passwd
-  });
-  
+    const res = await axios.post("http://127.0.0.1:8080/login", {
+      pwd: passwd,
+    });
+
     return true;
-} catch(error) {
+  } catch (error) {
     return error;
   }
 }
 
 async function LoginFx(passwd) {
   const res = await tryLogin(passwd);
-  if(res) {
+  if (res) {
     return true;
   }
   return false;
 }
 
-
 export default function HomeScreen() {
-
   const [inputPwd, setInputPwd] = useState("");
 
   const handleInputPwd = (event) => {
@@ -50,6 +47,7 @@ export default function HomeScreen() {
 
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [typingText, setTypingText] = useState("");
+  const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
     const text = "WELCOME TO SSTC";
@@ -85,7 +83,7 @@ export default function HomeScreen() {
     }
   }, [location.pathname]);
 
-  if (activeTab == "home") {
+  if (activeTab === "home") {
     return (
       <div
         style={{
@@ -100,6 +98,7 @@ export default function HomeScreen() {
         <div className="box_header" style={{}}>
           <img
             src={sstclogo}
+            alt=""
             width={60}
             height={50}
             style={{
@@ -152,18 +151,21 @@ export default function HomeScreen() {
               Faculty
             </span>
             <span
+              onMouseEnter={() => setIsShown(true)}
+              onMouseOut={() => setIsShown(false)}
               style={{
                 color: activeTab === "test" ? "white" : "black",
-                marginLeft: 50,
+                marginLeft: 50,height: "4rem",marginTop: "2rem",
                 cursor: "pointer",
-                backgroundColor:
-                  activeTab === "test" ? "#2432AE" : "transparent",
+                backgroundColor: activeTab === "test" ? "#2432AE" : "transparent",
+                //backgroundColor: "#2432ae",
                 padding: "5px 10px",
               }}
               onClick={() => handleClick("test")}
             >
               Online test series
             </span>
+
             <span
               style={{
                 color: activeTab === "access" ? "white" : "black",
@@ -179,6 +181,7 @@ export default function HomeScreen() {
             </span>
             <img
               src={searchlogo}
+              alt=""
               width={60}
               height={50}
               style={{
@@ -192,7 +195,7 @@ export default function HomeScreen() {
             position: "relative",
           }}
         >
-          <img src={sstc} width="100%" height={700}></img>
+          <img src={sstc} alt="" width="100%" height={700}></img>
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -206,6 +209,148 @@ export default function HomeScreen() {
               color: "white",
             }}
           >
+            {isShown && (
+              <div
+                onMouseEnter={() => setIsShown(true)}
+                onMouseLeave={() => setIsShown(false)}
+                style={{
+                
+                  backgroundColor: "black",
+                  height: "17rem",
+                  width: "20rem",
+                  marginLeft: "62vw",
+                  marginTop: "15vh",
+                  borderRadius: "0.8rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "",
+                    height: "3rem",
+                  }}
+                >
+                  <span
+                    onClick={() => {
+                      setActiveSelectTab(false);
+                    }}
+                    style={{
+                      fontSize: "1.5rem",
+                      marginRight: "4rem",
+                      backgroundColor: activeSelectTab ? "" : "#94b9ff",
+                      borderRadius: "0.2rem",
+                    }}
+                  >
+                    Student
+                  </span>
+
+                  <span
+                    onClick={() => {
+                      setActiveSelectTab(true);
+                    }}
+                    style={{
+                      fontSize: "1.5rem",
+                      backgroundColor: activeSelectTab ? "#94b9ff" : "",
+                      borderRadius: "0.2rem",
+                    }}
+                  >
+                    Admin
+                  </span>
+                </div>
+                <div
+                  style={{
+                    backgroundColor: "#D4D4D4",
+                    height: 1,
+                    borderWidth: 1,
+                  }}
+                ></div>
+                <div
+                  style={{
+                    height: "14rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  {activeSelectTab ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <text
+                        style={{
+                          fontSize: 15,
+                          color: "white",
+                          marginBottom: "2rem",
+                          marginTop: "2rem",
+                        }}
+                      >
+                        Enter Admin Password :
+                      </text>
+                      <input
+                        onChange={handleInputPwd}
+                        style={{
+                          textAlign: "center",
+                          marginBottom: "2rem",
+                          width: "100%",
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          tryLogin(inputPwd).then((value) => {
+                            if (value === true) {
+                              navigate("/testseries/admin");
+                            } else {
+                              alert("Wrong Password For Admin.");
+                            }
+                          });
+                        }}
+                      >
+                        Login
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <text
+                        style={{
+                          fontSize: 15,
+                          color: "white",
+                          marginBottom: "2rem",
+                          marginTop: "2rem",
+                        }}
+                      >
+                        Enter Your Roll Number :
+                      </text>
+                      <input
+                        style={{
+                          textAlign: "center",
+                          marginBottom: "2rem",
+                          width: "100%",
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          navigate("testseries");
+                        }}
+                      >
+                        Start Test
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
             WELCOME TO SSTC
           </motion.span>
         </div>
@@ -258,11 +403,12 @@ export default function HomeScreen() {
               marginLeft: 80,
             }}
             src={sideimg}
+            alt=""
           ></img>
         </div>
       </div>
     );
-  } else if (activeTab == "test") {
+  } else if (activeTab === "test") {
     return (
       <div
         style={{
@@ -275,6 +421,7 @@ export default function HomeScreen() {
         <div className="box_header" style={{}}>
           <img
             src={sstclogo}
+            alt=""
             width={60}
             height={50}
             style={{
@@ -354,6 +501,7 @@ export default function HomeScreen() {
             </span>
             <img
               src={searchlogo}
+              alt=""
               width={60}
               height={50}
               style={{
@@ -450,7 +598,7 @@ export default function HomeScreen() {
                 <br></br>Enter Admin Password : <br></br>
               </text>
               <input
-              onChange={handleInputPwd}
+                onChange={handleInputPwd}
                 style={{
                   height: "8vh",
                   width: "30vw",
@@ -477,14 +625,13 @@ export default function HomeScreen() {
                   borderWidth: "0rem",
                 }}
                 onClick={() => {
-                 tryLogin(inputPwd).then((value) => {
-                  if(value === true) {
-                    navigate("/testseries/admin")
-                  }
-                  else {
-                    alert("Wrong Password For Admin.")
-                  }
-                 })
+                  tryLogin(inputPwd).then((value) => {
+                    if (value === true) {
+                      navigate("/testseries/admin");
+                    } else {
+                      alert("Wrong Password For Admin.");
+                    }
+                  });
                 }}
               >
                 <text
@@ -557,7 +704,7 @@ export default function HomeScreen() {
         </div>
       </div>
     );
-  } else if (activeTab == "faculty") {
+  } else if (activeTab === "faculty") {
     return (
       <div
         style={{
@@ -571,6 +718,7 @@ export default function HomeScreen() {
         <div className="box_header" style={{}}>
           <img
             src={sstclogo}
+            alt=""
             width={60}
             height={50}
             style={{
@@ -650,6 +798,7 @@ export default function HomeScreen() {
             </span>
             <img
               src={searchlogo}
+              alt=""
               width={60}
               height={50}
               style={{
@@ -661,7 +810,7 @@ export default function HomeScreen() {
         <text>FACULTY</text>
       </div>
     );
-  } else if (activeTab == "access") {
+  } else if (activeTab === "access") {
     return (
       <div
         style={{
@@ -675,6 +824,7 @@ export default function HomeScreen() {
         <div className="box_header" style={{}}>
           <img
             src={sstclogo}
+            alt=""
             width={60}
             height={50}
             style={{
@@ -754,6 +904,7 @@ export default function HomeScreen() {
             </span>
             <img
               src={searchlogo}
+              alt=""
               width={60}
               height={50}
               style={{

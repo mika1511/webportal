@@ -87,6 +87,7 @@ const QuizNameInput = ({ onCreate }) => {
         <button
           style={{
             height: "3rem",
+            width: "12rem",
             outlineColor: "white",
             borderWidth: "0rem",
             fontWeight: "bold",
@@ -262,23 +263,14 @@ const CreateATest = function () {
                 }}
               >
                 <button
-                  onMouseEnter={() => {
-                    handleMouseEnter();
-                  }}
-                  onMouseLeave={() => {
-                    handleMouseLeave();
-                  }}
+                  className="cross_button"
                   onClick={() => removeQuestion(questionIndex)}
                   style={{
-                    backgroundColor: isHovering ? "red" : "black",
                     color: "white",
                     height: "2.5rem",
                     width: "2.5rem",
                     fontWeight: "bold",
                     borderWidth: "0rem",
-                    boxShadow: isHovering
-                      ? "2px 2px 5px red"
-                      : "2px 2px 5px grey",
                     borderRadius: "0.3rem",
                   }}
                 >
@@ -356,14 +348,14 @@ const CreateATest = function () {
   );
 };
 
-const questionType = {
-  String,
-  String,
-  String,
-  String,
-  String,
-  String,
-};
+// const questionType = {
+//   String,
+//   String,
+//   String,
+//   String,
+//   String,
+//   String,
+// };
 
 export default function OnlineTestSeries() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -394,7 +386,7 @@ export default function OnlineTestSeries() {
         }}
       >
         <img
-          src={HomeIcon}
+          src={HomeIcon} alt=""
           width="90rem"
           height="90rem"
           onClick={() => {
