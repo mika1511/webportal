@@ -4,7 +4,7 @@ import searchlogo from "./../searchlogo.png";
 import sstc from "./../sstc.png";
 import "./home.css";
 import sideimg from "./../sideimg.png";
-import { motion } from "framer-motion";
+import { motion, useWillChange } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -155,9 +155,11 @@ export default function HomeScreen() {
               onMouseOut={() => setIsShown(false)}
               style={{
                 color: activeTab === "test" ? "white" : "black",
-                marginLeft: 50,height: "4rem",marginTop: "2rem",
+                marginLeft: 50,
+                height: "5rem",
+                marginTop: "2rem",
                 cursor: "pointer",
-                backgroundColor: activeTab === "test" ? "#2432AE" : "transparent",
+                backgroundColor: activeTab === "test" ? "#2432AE" : "",
                 //backgroundColor: "#2432ae",
                 padding: "5px 10px",
               }}
@@ -171,18 +173,18 @@ export default function HomeScreen() {
                 color: activeTab === "access" ? "white" : "black",
                 marginLeft: 50,
                 cursor: "pointer",
-                backgroundColor:
-                  activeTab === "access" ? "#2432AE" : "transparent",
+                backgroundColor: activeTab === "access" ? "#2432AE" : "",
                 padding: "5px 10px",
               }}
               onClick={() => handleClick("access")}
             >
               Quick access
             </span>
+
             <img
               src={searchlogo}
               alt=""
-              width={60}
+              width={50}
               height={50}
               style={{
                 marginLeft: 50,
@@ -214,12 +216,11 @@ export default function HomeScreen() {
                 onMouseEnter={() => setIsShown(true)}
                 onMouseLeave={() => setIsShown(false)}
                 style={{
-                
                   backgroundColor: "black",
                   height: "17rem",
                   width: "20rem",
                   marginLeft: "62vw",
-                  marginTop: "15vh",
+                  marginTop: "16vh",
                   borderRadius: "0.8rem",
                 }}
               >
