@@ -338,7 +338,7 @@ const CreateATest = function () {
             className="save_button"
             onClick={saveToJson}
           >
-            Save to JSON
+            Save as Draft
           </button>
         </div>
       ) : (
