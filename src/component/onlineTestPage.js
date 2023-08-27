@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Radio from "@mui/material/Radio";
 
+
 const OnlineTestCreate = () => {
   return (
     <div
@@ -209,6 +210,8 @@ const CreateATest = function () {
     setIsHovering(false);
   };
 
+  const [isShown, setIsShown] = useState(false);
+
   return (
     <div>
       {quizName ? (
@@ -233,7 +236,18 @@ const CreateATest = function () {
                 borderRadius: "3rem",
                 marginBottom: "2rem",
               }}
-            >
+            > 
+
+              {/* {isShown && (
+                <div 
+                style={{
+                  backgroundColor: "black",
+                  height: "3rem",
+                  width: "7rem",
+                }}> 
+
+                </div>
+              )} */}
               <span
                 style={{
                   fontSize: "1.9rem",
@@ -244,6 +258,8 @@ const CreateATest = function () {
               </span>
 
               <input
+                //onMouseEnter={setIsShown(true)}
+                //onMouseLeave={setIsShown(false)}
                 placeholder="Question..."
                 className="qna_container"
                 style={{

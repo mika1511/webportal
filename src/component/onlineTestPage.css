@@ -26,7 +26,7 @@ input:focus {
   outline: none;
 }
 .qna_container:hover {
-  background-color: whitesmoke;
+  background-color: whitesmoke;  
 }
 
 @keyframes hovering_button {

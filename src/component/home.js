@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { withTheme } from "@emotion/react";
 
 async function tryLogin(passwd) {
   try {
@@ -103,12 +104,14 @@ export default function HomeScreen() {
             height={50}
             style={{
               marginLeft: 20,
+              
             }}
           ></img>
 
           <span
             style={{
               fontSize: 20,
+              color: "white",
             }}
           >
             𝗦𝗛𝗥𝗜 𝗦𝗛𝗔𝗡𝗞𝗔𝗥𝗔𝗖𝗛𝗔𝗥𝗬𝗔 <br />
@@ -188,6 +191,7 @@ export default function HomeScreen() {
               height={50}
               style={{
                 marginLeft: 50,
+                color: "white",
               }}
             ></img>
           </div>
@@ -220,7 +224,7 @@ export default function HomeScreen() {
                   height: "17rem",
                   width: "20rem",
                   marginLeft: "62vw",
-                  marginTop: "16vh",
+                  //marginTop: "11vh",
                   borderRadius: "0.8rem",
                 }}
               >
