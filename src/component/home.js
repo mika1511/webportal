@@ -104,7 +104,6 @@ export default function HomeScreen() {
             height={50}
             style={{
               marginLeft: 20,
-              
             }}
           ></img>
 
@@ -305,19 +304,25 @@ export default function HomeScreen() {
                           width: "100%",
                         }}
                       />
-                      <button
-                        onClick={() => {
-                          tryLogin(inputPwd).then((value) => {
-                            if (value === true) {
-                              navigate("/testseries/admin");
-                            } else {
-                              alert("Wrong Password For Admin.");
-                            }
-                          });
-                        }}
-                      >
-                        Login
-                      </button>
+                      {/* <div style={{ flexDirection: "row", marginTop: "-10vh" }}> */}
+                        <button
+                          onClick={() => {
+                            tryLogin(inputPwd).then((value) => {
+                              if (value === true) {
+                                navigate("/testseries/admin");
+                              } else {
+                                alert("Wrong Password For Admin.");
+                              }
+                            });
+                          }}
+                        >
+                          Login
+                        </button>
+                        
+                        <button onClick={() => handleClick("signup")}>
+                          Sign Up
+                        </button>
+                      {/* </div> */}
                     </div>
                   ) : (
                     <div
@@ -919,6 +924,88 @@ export default function HomeScreen() {
           </div>
         </div>
         <text>ACCESS</text>
+      </div>
+    );
+  } else if (activeTab === "signup") {
+    return (
+      <div
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          overflowX: "hidden",
+          flex: 1,
+          backgroundColor: "#D4D4D4",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+            height: "70vh",
+            width: "50%",
+            marginTop: "15vh",
+            marginLeft: "50vh",
+            borderRadius: "4rem",
+          }}
+        >
+          <text
+            style={{
+              fontSize: "2.5rem",
+              textAlign: "left",
+            }}
+          >
+            𝓒𝓻𝓮𝓪𝓽𝓮 𝓐𝓷 𝓐𝓭𝓶𝓲𝓷 𝓐𝓬𝓬𝓸𝓾𝓷𝓽
+          </text>
+          <div
+            style={{
+              backgroundColor: "#D4D4D4",
+              height: 1,
+              borderWidth: 1,
+            }}
+          ></div>
+
+          <div style={{ marginTop: "3rem" }}>
+            <span
+              style={{
+                fontSize: "2rem",
+                marginLeft: "-41.5rem",
+                fontWeight: "600",
+              }}
+            >
+              Admin's Name
+            </span></div>
+            <input></input>
+          
+
+          <div style={{ marginTop: "3rem" }}>
+            <span
+              style={{
+                fontSize: "2rem",
+                marginLeft: "-36rem",
+                fontWeight: "600",
+              }}
+            >
+              Admin's Designation
+            </span></div>
+            <input style={{
+
+            }}></input>
+          
+
+          <div style={{ marginTop: "3rem" }}>
+            <span
+              style={{
+                fontSize: "2rem",
+                marginLeft: "-38rem",
+                fontWeight: "600",
+              }}
+            >
+              Admin's Password
+            </span></div>
+            <input></input>
+            <div style={{ marginTop: "3rem" }}>
+              <button onClick={() => handleClick("home")}>Submit</button>
+            </div>
+        </div>
       </div>
     );
   }
