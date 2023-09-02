@@ -26,7 +26,7 @@ const OnlineTestCreate = () => {
 const OnlineTestExec = () => {};
 
 const activeTabHandler = function (tab) {
-  if (tab == "createatest") {
+  if (tab === "createatest") {
     return <CreateATest></CreateATest>;
   }
 };
@@ -373,7 +373,7 @@ export default function StdTestSeries() {
         }}
       >
         <img
-          src={HomeIcon}
+          src={HomeIcon} alt=""
           width="90rem"
           height="90rem"
           onClick={() => {

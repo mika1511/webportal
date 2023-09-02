@@ -92,8 +92,8 @@ export default function HomeScreen() {
           height: "100vh",
           overflowX: "hidden",
           flex: 1,
-          //backgroundColor: "#D1E6F9",
           backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)",
+          position: "fixed",
         }}
       >
         <div className="box_header" style={{}}>
@@ -105,7 +105,7 @@ export default function HomeScreen() {
             style={{
               marginLeft: 20,
             }}
-          ></img>
+          />
 
           <span
             style={{
@@ -267,6 +267,8 @@ export default function HomeScreen() {
                   style={{
                     backgroundColor: "#D4D4D4",
                     height: 1,
+                    width: "80%",
+                    marginLeft: "10%",
                     borderWidth: 1,
                   }}
                 ></div>
@@ -305,23 +307,23 @@ export default function HomeScreen() {
                         }}
                       />
                       {/* <div style={{ flexDirection: "row", marginTop: "-10vh" }}> */}
-                        <button
-                          onClick={() => {
-                            tryLogin(inputPwd).then((value) => {
-                              if (value === true) {
-                                navigate("/testseries/admin");
-                              } else {
-                                alert("Wrong Password For Admin.");
-                              }
-                            });
-                          }}
-                        >
-                          Login
-                        </button>
-                        
-                        <button onClick={() => handleClick("signup")}>
+                      <button
+                        onClick={() => {
+                          tryLogin(inputPwd).then((value) => {
+                            if (value === true) {
+                              navigate("/testseries/admin");
+                            } else {
+                              alert("Wrong Password For Admin.");
+                            }
+                          });
+                        }}
+                      >
+                        Login
+                      </button>
+
+                      {/* <button onClick={() => handleClick("signup")}>
                           Sign Up
-                        </button>
+                        </button> */}
                       {/* </div> */}
                     </div>
                   ) : (
@@ -332,7 +334,7 @@ export default function HomeScreen() {
                         alignItems: "center",
                       }}
                     >
-                      <text
+                      {/* <text
                         style={{
                           fontSize: 15,
                           color: "white",
@@ -341,8 +343,19 @@ export default function HomeScreen() {
                         }}
                       >
                         Enter Your Roll Number :
-                      </text>
+                      </text> */}
                       <input
+                        placeholder="ADMISSION ID:"
+                        style={{
+                          textAlign: "center",
+                          marginBottom: "2rem",
+                          width: "100%",
+                          marginTop: "2.5rem"
+                        }}
+                      />
+
+                      <input
+                        placeholder="Mob No.:"
                         style={{
                           textAlign: "center",
                           marginBottom: "2rem",
@@ -972,9 +985,9 @@ export default function HomeScreen() {
               }}
             >
               Admin's Name
-            </span></div>
-            <input></input>
-          
+            </span>
+          </div>
+          <input></input>
 
           <div style={{ marginTop: "3rem" }}>
             <span
@@ -985,11 +998,9 @@ export default function HomeScreen() {
               }}
             >
               Admin's Designation
-            </span></div>
-            <input style={{
-
-            }}></input>
-          
+            </span>
+          </div>
+          <input style={{}}></input>
 
           <div style={{ marginTop: "3rem" }}>
             <span
@@ -1000,11 +1011,12 @@ export default function HomeScreen() {
               }}
             >
               Admin's Password
-            </span></div>
-            <input></input>
-            <div style={{ marginTop: "3rem" }}>
-              <button onClick={() => handleClick("home")}>Submit</button>
-            </div>
+            </span>
+          </div>
+          <input></input>
+          <div style={{ marginTop: "3rem" }}>
+            <button onClick={() => handleClick("home")}>Submit</button>
+          </div>
         </div>
       </div>
     );
