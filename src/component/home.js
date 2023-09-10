@@ -49,6 +49,7 @@ export default function HomeScreen() {
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [typingText, setTypingText] = useState("");
   const [isShown, setIsShown] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
     const text = "WELCOME TO SSTC";
@@ -152,23 +153,37 @@ export default function HomeScreen() {
             >
               Faculty
             </span>
-            <span
+            <div
               onMouseEnter={() => setIsShown(true)}
               onMouseOut={() => setIsShown(false)}
               style={{
-                color: activeTab === "test" ? "white" : "black",
+                height: "8.2rem",
+                backgroundColor: "",
                 marginLeft: 50,
-                height: "5rem",
-                marginTop: "2rem",
-                cursor: "pointer",
-                backgroundColor: activeTab === "test" ? "#2432AE" : "",
-                //backgroundColor: "#2432ae",
-                padding: "5px 10px",
+                alignContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+
               }}
-              onClick={() => handleClick("test")}
-            >
-              Online test series
-            </span>
+            > <div style={{height: "33%", backgroundColor: "",}}></div>
+              <span
+                
+                style={{
+                  color: activeTab === "test" ? "white" : "black",
+                  
+
+                  marginTop: "4rem",
+                  cursor: "pointer",
+                  //backgroundColor: activeTab === "test" ? "#2432AE" : "",
+                  //backgroundColor: "#2432ae",
+                  padding: "50px 10px",
+                }}
+                onClick={() => handleClick("test")}
+              >
+                Online test series
+              </span>
+            </div>
 
             <span
               style={{
@@ -247,7 +262,7 @@ export default function HomeScreen() {
                       borderRadius: "0.2rem",
                     }}
                   >
-                    Student
+                    {" Student "}
                   </span>
 
                   <span
@@ -260,15 +275,13 @@ export default function HomeScreen() {
                       borderRadius: "0.2rem",
                     }}
                   >
-                    Admin
+                    {" Admin "}
                   </span>
                 </div>
                 <div
                   style={{
                     backgroundColor: "#D4D4D4",
                     height: 1,
-                    width: "80%",
-                    marginLeft: "10%",
                     borderWidth: 1,
                   }}
                 ></div>
@@ -292,18 +305,19 @@ export default function HomeScreen() {
                         style={{
                           fontSize: 15,
                           color: "white",
-                          marginBottom: "2rem",
+                          marginBottom: "1.5rem",
                           marginTop: "2rem",
                         }}
                       >
                         Enter Admin Password :
                       </text>
                       <input
+                        placeholder="Enter Password"
                         onChange={handleInputPwd}
                         style={{
                           textAlign: "center",
-                          marginBottom: "2rem",
-                          width: "100%",
+                          marginBottom: "2.5rem",
+                          width: "90%",
                         }}
                       />
                       {/* <div style={{ flexDirection: "row", marginTop: "-10vh" }}> */}
@@ -334,23 +348,13 @@ export default function HomeScreen() {
                         alignItems: "center",
                       }}
                     >
-                      {/* <text
-                        style={{
-                          fontSize: 15,
-                          color: "white",
-                          marginBottom: "2rem",
-                          marginTop: "2rem",
-                        }}
-                      >
-                        Enter Your Roll Number :
-                      </text> */}
                       <input
                         placeholder="ADMISSION ID:"
                         style={{
                           textAlign: "center",
                           marginBottom: "2rem",
                           width: "100%",
-                          marginTop: "2.5rem"
+                          marginTop: "2rem",
                         }}
                       />
 
@@ -780,6 +784,7 @@ export default function HomeScreen() {
             >
               Home
             </span>
+
             <span
               style={{
                 color: activeTab === "faculty" ? "white" : "black",
@@ -793,6 +798,7 @@ export default function HomeScreen() {
             >
               Faculty
             </span>
+
             <span
               style={{
                 color: activeTab === "test" ? "white" : "black",
