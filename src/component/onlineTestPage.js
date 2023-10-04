@@ -7,7 +7,7 @@ import HomeIcon from "../homeicon.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Radio from "@mui/material/Radio";
-
+import axios from "axios";
 
 const OnlineTestCreate = () => {
   return (
@@ -26,8 +26,38 @@ const OnlineTestCreate = () => {
 
 const OnlineTestExec = () => {};
 
+
+async function printques(questions) {
+  try {
+    const res = await axios.post("http://127.0.0.1:8080/save_questions", { 
+      questions:questions,
+    });
+    console.log(questions);
+
+    return true;
+  } catch (error) {
+    return error;
+  }
+}
+
+const saveQuestions = async (questions) => {
+  try {
+    const response = await axios.post('/save_questions', {questions});
+    if (response.status === 200) {
+      // Handle a successful response
+      console.log('Questions saved successfully');
+    } else {
+      // Handle an error response
+      console.error('Error saving questions');
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error saving questions:', error);
+  }
+};
+
 const activeTabHandler = function (tab) {
-  if (tab == "createatest") {
+  if (tab === "createatest") {
     return <CreateATest></CreateATest>;
   }
 };
@@ -111,6 +141,7 @@ const CreateATest = function () {
   const handleQuizCreate = (name) => {
     setQuizName(name);
   };
+
   const [questions, setQuestions] = useState([
     {
       quest: "",
@@ -150,6 +181,7 @@ const CreateATest = function () {
     );
   };
 
+
   const addQuestion = () => {
     const lastIndex = questions.length - 1;
 
@@ -171,6 +203,8 @@ const CreateATest = function () {
         correctOpt: "op1",
       },
     ]);
+    console.log(questions[lastIndex]);
+
   };
 
   const canSaveToJson = () => {
@@ -352,7 +386,7 @@ const CreateATest = function () {
 
           <button
             className="save_button"
-            onClick={saveToJson}
+            onClick={ () => {saveQuestions(questions)}}
           >
             Save as Draft
           </button>
@@ -461,7 +495,7 @@ export default function OnlineTestSeries() {
               marginLeft: "1rem",
             }}
           >
-            RESULTS
+            PUBLISH
           </span>
         </div>
 
