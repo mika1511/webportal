@@ -172,7 +172,7 @@ const CreateATest = function () {
     const lastIndex = questions.length - 1;
 
     if (lastIndex >= 0 && !canAddQuestion(lastIndex)) {
-      alert("question fill crow.");
+      alert("Please fill the questions.");
       return;
     }
 
@@ -192,6 +192,41 @@ const CreateATest = function () {
     console.log(questions[lastIndex]);
     saveQuestions(questions[lastIndex]);
 
+  };
+
+  const done_making_test = () => {
+    if (!quizName) {
+      alert("Quiz name is required before saving.");
+      return;
+    }
+    addQuestion()
+    axios.post(`http://127.0.0.1:8080/done_making_test/${quizName}`)
+      .then((response) => {
+        if (response.status === 200) {
+          // Handle successful saving
+          console.log(`Questions saved to ${quizName}.json successfully`);
+          // You can also clear the quizName and questions state if needed
+          setQuizName("");
+          setQuestions([
+            {
+              quest: "",
+              options: [
+                { opt: "", isCorrect: false },
+                { opt: "", isCorrect: false },
+                { opt: "", isCorrect: false },
+                { opt: "", isCorrect: false },
+              ],
+              correctOpt: "op1",
+            },
+          ]);
+        } else {
+          // Handle saving error
+          console.error('Error saving questions');
+        }
+      })
+      .catch((error) => {
+        console.error('Error saving questions:', error);
+      });
   };
 
   const removeQuestion = (questionIndex) => {
@@ -368,7 +403,7 @@ const CreateATest = function () {
 
           <button
             className="save_button"
-            onClick={ () => {saveQuestions(questions)}}
+            onClick={ () => {done_making_test()}}
           >
             Save as Draft
           </button>
