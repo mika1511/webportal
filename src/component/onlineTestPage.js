@@ -26,23 +26,9 @@ const OnlineTestCreate = () => {
 
 const OnlineTestExec = () => {};
 
-
-async function printques(questions) {
-  try {
-    const res = await axios.post("http://127.0.0.1:8080/save_questions", { 
-      questions:questions,
-    });
-    console.log(questions);
-
-    return true;
-  } catch (error) {
-    return error;
-  }
-}
-
 const saveQuestions = async (questions) => {
   try {
-    const response = await axios.post('/save_questions', {questions});
+    const response = await axios.post('http://127.0.0.1:8080/save_questions', {questions});
     if (response.status === 200) {
       // Handle a successful response
       console.log('Questions saved successfully');
@@ -204,24 +190,8 @@ const CreateATest = function () {
       },
     ]);
     console.log(questions[lastIndex]);
+    saveQuestions(questions[lastIndex]);
 
-  };
-
-  const canSaveToJson = () => {
-    return questions.every(
-      (question) =>
-        question.quest.trim() !== "" &&
-        question.options.every((option) => option.opt.trim() !== "")
-    );
-  };
-
-  const saveToJson = () => {
-    if (canSaveToJson()) {
-      const jsonData = JSON.stringify(questions, null, 2);
-      console.log(jsonData);
-    } else {
-      alert("question fillll crowww.");
-    }
   };
 
   const removeQuestion = (questionIndex) => {
@@ -231,7 +201,19 @@ const CreateATest = function () {
     }
     const updatedQuestions = [...questions];
     updatedQuestions.splice(questionIndex, 1);
+
     setQuestions(updatedQuestions);
+    axios.delete('http://127.0.0.1:8080/remove_question', { data: { index: questionIndex } })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('Question removed from backend successfully');
+      } else {
+        console.error('Error removing question from backend');
+      }
+    })
+    .catch((error) => {
+      console.error('Error removing question from backend:', error);
+    });
   };
 
   const [isHovering, setIsHovering] = useState(false);
