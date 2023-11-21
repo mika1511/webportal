@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import sstclogo from "./../sstclogo.png";
 import searchlogo from "./../searchlogo.png";
 import sstc from "./../sstc.png";
+import TestImage from "./../testseriesimg.jpg";
 import "./home.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faHouse,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import sideimg from "./../sideimg.png";
-import { motion, useWillChange } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { withTheme } from "@emotion/react";
+import white from "./../white.jpg";
 
 async function tryLogin(passwd) {
   try {
@@ -22,8 +30,6 @@ async function tryLogin(passwd) {
     return error;
   }
 }
-
-
 
 async function LoginFx(passwd) {
   const res = await tryLogin(passwd);
@@ -87,353 +93,208 @@ export default function HomeScreen() {
     }
   }, [location.pathname]);
 
+  const slideRef = useRef(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const handleClickNext = () => {
+    let items = slideRef.current.querySelectorAll(".item");
+    slideRef.current.appendChild(items[0]);
+  };
+
+  const handleClickPrev = () => {
+    let items = slideRef.current.querySelectorAll(".item");
+    slideRef.current.prepend(items[items.length - 1]);
+  };
+
+  const data = [
+    {
+      id: 1,
+      imgUrl:
+        "https://i.postimg.cc/RVm59Gqy/pexels-roberto-nickson-2559941.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting lost.",
+      name: "CAREER",
+    },
+    {
+      id: 2,
+      imgUrl: sstc,
+      desc: "The Computer Science & Engineering Department welcomes you",
+      name: "WELCOME TO SSTC",
+    },
+    {
+      id: 3,
+      imgUrl:
+        "https://i.postimg.cc/bw6KxhLf/pexels-eberhard-grossgasteiger-1062249.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting lost.",
+      name: "FACULTY",
+    },
+    {
+      id: 4,
+      imgUrl: TestImage,
+      desc: "Some beautiful roads cannot be discovered without getting lost.",
+      name: "ONLINE TEST SERIES",
+    },
+    {
+      id: 5,
+      imgUrl: "https://i.postimg.cc/6qdkn4bM/pexels-joyston-judah-933054.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting lost.",
+      name: "COURSES",
+    },
+  ];
+
   if (activeTab === "home") {
     return (
       <div
         style={{
           overflow: "auto",
-          height: "100vh",
           overflowX: "hidden",
           flex: 1,
-          backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)",
-          position: "fixed",
+          backgroundImage: "#fff",
+
         }}
       >
         <div className="box_header" style={{}}>
-          <img
-            src={sstclogo}
-            alt=""
-            width={60}
-            height={50}
-            style={{
-              marginLeft: 20,
-            }}
-          />
-
-          <span
-            style={{
-              fontSize: 20,
-              color: "white",
-            }}
-          >
-            𝗦𝗛𝗥𝗜 𝗦𝗛𝗔𝗡𝗞𝗔𝗥𝗔𝗖𝗛𝗔𝗥𝗬𝗔 <br />
-            𝗧𝗘𝗖𝗛𝗡𝗜𝗖𝗔𝗟 𝗖𝗔𝗠𝗣𝗨𝗦
-          </span>
-
+          <img src={sstclogo} alt="" width={255} height={47} />
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               margin: "auto",
               justifyContent: "space-between",
               fontSize: 18,
             }}
           >
-            <span
+            <FontAwesomeIcon
+              icon={faHouse}
+              className="navbar_items"
               style={{
                 color: activeTab === "home" ? "white" : "black",
-                marginLeft: 400,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "home" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
+                marginLeft: "50rem",
               }}
               onClick={() => handleClick("home")}
-            >
-              Home
-            </span>
+            />
+
             <span
-              style={{
-                color: activeTab === "faculty" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "faculty" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "faculty" ? "white" : "black" }}
               onClick={() => handleClick("faculty")}
             >
-              Faculty
+              𝐅𝐚𝐜𝐮𝐥𝐭𝐲
             </span>
-            <div
-              onMouseEnter={() => setIsShown(true)}
-              onMouseOut={() => setIsShown(false)}
-              style={{
-                height: "8.2rem",
-                backgroundColor: "",
-                marginLeft: 50,
-                alignContent: "center",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-
-              }}
-            > <div style={{height: "33%", backgroundColor: "",}}></div>
-              <span
-                
-                style={{
-                  color: activeTab === "test" ? "white" : "black",
-                  
-
-                  marginTop: "4rem",
-                  cursor: "pointer",
-                  //backgroundColor: activeTab === "test" ? "#2432AE" : "",
-                  //backgroundColor: "#2432ae",
-                  padding: "50px 10px",
-                }}
-                onClick={() => handleClick("test")}
-              >
-                Online test series
-              </span>
-            </div>
 
             <span
-              style={{
-                color: activeTab === "access" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor: activeTab === "access" ? "#2432AE" : "",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "test" ? "white" : "black" }}
+              onClick={() => handleClick("test")}
+            >
+              𝐎𝐧𝐥𝐢𝐧𝐞 𝐓𝐞𝐬𝐭 𝐒𝐞𝐫𝐢𝐞𝐬
+            </span>
+
+            <span
+              className="navbar_items"
+              style={{ color: activeTab === "access" ? "white" : "black" }}
               onClick={() => handleClick("access")}
             >
-              Quick access
+              𝐐𝐮𝐢𝐜𝐤 𝐀𝐜𝐜𝐞𝐬𝐬
             </span>
 
-            <img
-              src={searchlogo}
-              alt=""
+            <FontAwesomeIcon
+              className="navbar_items"
+              icon={faSearch}
               width={50}
               height={50}
-              style={{
-                marginLeft: 50,
-                color: "white",
-              }}
-            ></img>
+            />
           </div>
         </div>
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          <img src={sstc} alt="" width="100%" height={700}></img>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-            style={{
-              position: "absolute",
-              bottom: 350,
-              left: 50,
-              right: 50,
-              fontSize: 80,
-              color: "white",
-            }}
-          >
-            {isShown && (
+        <div className="container">
+          <div
+            className="loadbar"
+            style={{ width: `${loadingProgress}%` }}
+          ></div>
+          <div id="slide" ref={slideRef}>
+            {data.map((item) => (
               <div
-                onMouseEnter={() => setIsShown(true)}
-                onMouseLeave={() => setIsShown(false)}
-                style={{
-                  backgroundColor: "black",
-                  height: "17rem",
-                  width: "20rem",
-                  marginLeft: "62vw",
-                  //marginTop: "11vh",
-                  borderRadius: "0.8rem",
-                }}
+                key={item.id}
+                className="item"
+                style={{ backgroundImage: `url(${item.imgUrl})` }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "",
-                    height: "3rem",
-                  }}
-                >
-                  <span
-                    onClick={() => {
-                      setActiveSelectTab(false);
-                    }}
-                    style={{
-                      fontSize: "1.5rem",
-                      marginRight: "4rem",
-                      backgroundColor: activeSelectTab ? "" : "#94b9ff",
-                      borderRadius: "0.2rem",
-                    }}
+                {" "}
+                <span className="smalldes">{item.name}</span>
+                <div className="content">
+                  <div className="name">{item.name}</div>
+                  <div className="des">{item.desc}</div>
+                  <button
+                    style={{ backgroundColor: "inherit", color: "inherit" }}
                   >
-                    {" Student "}
-                  </span>
-
-                  <span
-                    onClick={() => {
-                      setActiveSelectTab(true);
-                    }}
-                    style={{
-                      fontSize: "1.5rem",
-                      backgroundColor: activeSelectTab ? "#94b9ff" : "",
-                      borderRadius: "0.2rem",
-                    }}
-                  >
-                    {" Admin "}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#D4D4D4",
-                    height: 1,
-                    borderWidth: 1,
-                  }}
-                ></div>
-                <div
-                  style={{
-                    height: "14rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  {activeSelectTab ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                    >
-                      <text
-                        style={{
-                          fontSize: 15,
-                          color: "white",
-                          marginBottom: "1.5rem",
-                          marginTop: "2rem",
-                        }}
-                      >
-                        Enter Admin Password :
-                      </text>
-                      <input
-                        placeholder="Enter Password"
-                        onChange={handleInputPwd}
-                        style={{
-                          textAlign: "center",
-                          marginBottom: "2.5rem",
-                          width: "90%",
-                        }}
-                      />
-                      {/* <div style={{ flexDirection: "row", marginTop: "-10vh" }}> */}
-                      <button
-                        onClick={() => {
-                          tryLogin(inputPwd).then((value) => {
-                            if (value === true) {
-                              navigate("/testseries/admin");
-                            } else {
-                              alert("Wrong Password For Admin.");
-                            }
-                          });
-                        }}
-                      >
-                        Login
-                      </button>
-
-                      {/* <button onClick={() => handleClick("signup")}>
-                          Sign Up
-                        </button> */}
-                      {/* </div> */}
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                    >
-                      <input
-                        placeholder="ADMISSION ID:"
-                        style={{
-                          textAlign: "center",
-                          marginBottom: "2rem",
-                          width: "100%",
-                          marginTop: "2rem",
-                        }}
-                      />
-
-                      <input
-                        placeholder="Mob No.:"
-                        style={{
-                          textAlign: "center",
-                          marginBottom: "2rem",
-                          width: "100%",
-                        }}
-                      />
-                      <button
-                        onClick={() => {
-                          navigate("testseries");
-                        }}
-                      >
-                        Start Test
-                      </button>
-                    </div>
-                  )}
+                    See more...
+                  </button>
                 </div>
               </div>
-            )}
-            WELCOME TO SSTC
-          </motion.span>
+            ))}
+          </div>
+          <div className="buttons">
+            <button id="prev" onClick={handleClickPrev}>
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </button>
+            <button id="next" onClick={handleClickNext}>
+              <FontAwesomeIcon icon={faAngleRight} />
+            </button>
+          </div>
         </div>
-        <div
+        <div height={"95vh"} width={"100vw"}>
+          <img className="white" src={white} alt="" />
+        </div>
+        <br />
+        <span
           style={{
-            marginTop: 10,
-            display: "flex",
-            marginLeft: 30,
+            color: "#242526",
+            fontSize: 18,
+            marginTop: "95vh",
+            marginLeft: "-77vw",
           }}
         >
-          <span style={{ color: "#242526", fontSize: 18 }}>
-            Software | Technology | Excellence
+          Software | Technology | Excellence
+        </span>
+        <br />
+        <br />
+        <div
+          style={{ width: "50vw", marginLeft: "-1rem", flexDirection: "row" }}
+        >
+          <span
+            style={{
+              color: "#000",
+              fontSize: "30px",
+              fontWeight: "bold",
+            }}
+          >
+            Welcome To Computer Science and Engineering Department of SSTC
           </span>
         </div>
-
-        <div
-          style={{
-            marginTop: 7,
-            display: "flex",
-            marginLeft: -30,
-          }}
-        >
-          <div style={{}}>
-            <span style={{ fontSize: 30, fontWeight: "bold" }}>
-              Welcome to the Computer Science and Engineering Department of SSTC
-            </span>
-
+        <div style={{ display: "flex" }}>
+          <br />
+          <div className="info2">
+            <text style={{ color: "grey",marginLeft: "-44vw", fontSize: "15px",}}>●</text>
             <div
               style={{
-                width: "100%",
-                marginLeft: "3vw",
+                paddingLeft: "28px",
+                paddingRight: "28px",
+                paddingBottom: "28px",
+                paddingTop: "5px",
               }}
             >
-              <p
-                style={{
-                  backgroundImage: "linear-gradient(#D1E6F9, #FFFFFF)",
-                  // backgroundColor: "#E5f3fd",
-                  borderRadius: 20,
-                  fontSize: 25,
-                }}
-              >
-                {
-                  " The department of Computer Science and Engineering at the Shri shankaracharya technical campus promotes innovation-centric education and performs cutting-edge research. The department continuously endeavors to create and sustain an academic environment conducive to the highest level of research and teaching. The goal is to develop human resources with sound knowledge of theoretical, systems, and application aspects of Computer Science & Engineering. The department also facilitates the development of academia-industry collaborations and societal outreach activities. "
-                }
-              </p>
+              <text className="info2-text" style={{textAlign: "left",alignItems: "flex-start"}}>
+                The department of Computer Science and Engineering at the Shri
+                shankaracharya technical campus promotes innovation-centric
+                education and performs cutting-edge research. The department
+                continuously endeavors to create and sustain an academic
+                environment conducive to the highest level of research and
+                teaching. The goal is to develop human resources with sound
+                knowledge of theoretical, systems, and application aspects of
+                Computer Science & Engineering. The department also facilitates
+                the development of academia-industry collaborations and societal
+                outreach activities.
+              </text>
             </div>
           </div>
-          <img
-            style={{
-              marginLeft: 80,
-            }}
-            src={sideimg}
-            alt=""
-          ></img>
+
+          <img className="sideimg" src={sideimg} alt="" />
         </div>
       </div>
     );
@@ -445,98 +306,60 @@ export default function HomeScreen() {
           height: "100vh",
           overflowX: "hidden",
           flex: 1,
+          backgroundColor: "rgba(34,61,97,0.39)",
         }}
       >
         <div className="box_header" style={{}}>
-          <img
-            src={sstclogo}
-            alt=""
-            width={60}
-            height={50}
-            style={{
-              marginLeft: 20,
-            }}
-          ></img>
-
-          <span
-            style={{
-              fontSize: 20,
-            }}
-          >
-            𝗦𝗛𝗥𝗜 𝗦𝗛𝗔𝗡𝗞𝗔𝗥𝗔𝗖𝗛𝗔𝗥𝗬𝗔 <br />
-            𝗧𝗘𝗖𝗛𝗡𝗜𝗖𝗔𝗟 𝗖𝗔𝗠𝗣𝗨𝗦
-          </span>
+          <img src={sstclogo} alt="" width={255} height={47} />
 
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               margin: "auto",
               justifyContent: "space-between",
               fontSize: 18,
             }}
           >
-            <span
+            <FontAwesomeIcon
+              icon={faHouse}
+              className="navbar_items"
               style={{
                 color: activeTab === "home" ? "white" : "black",
-                marginLeft: 400,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "home" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
+                marginLeft: "50rem",
               }}
               onClick={() => handleClick("home")}
-            >
-              Home
-            </span>
+            />
+
             <span
-              style={{
-                color: activeTab === "faculty" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "faculty" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "faculty" ? "white" : "black" }}
               onClick={() => handleClick("faculty")}
             >
-              Faculty
+              𝐅𝐚𝐜𝐮𝐥𝐭𝐲
             </span>
+
             <span
-              style={{
-                color: activeTab === "test" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "test" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "test" ? "white" : "black" }}
               onClick={() => handleClick("test")}
             >
-              Online test series
+              𝐎𝐧𝐥𝐢𝐧𝐞 𝐓𝐞𝐬𝐭 𝐒𝐞𝐫𝐢𝐞𝐬
             </span>
+
             <span
-              style={{
-                color: activeTab === "access" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "access" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "access" ? "white" : "black" }}
               onClick={() => handleClick("access")}
             >
-              Quick access
+              𝐐𝐮𝐢𝐜𝐤 𝐀𝐜𝐜𝐞𝐬𝐬
             </span>
-            <img
-              src={searchlogo}
-              alt=""
-              width={60}
+
+            <FontAwesomeIcon
+              className="navbar_items"
+              icon={faSearch}
+              width={50}
               height={50}
-              style={{
-                marginLeft: 50,
-              }}
-            ></img>
+            />
           </div>
         </div>
         <div
@@ -636,7 +459,6 @@ export default function HomeScreen() {
                   marginTop: "5vh",
                   borderRadius: 10,
                   fontSize: 22,
-                  textAlign: "center",
                   borderWidth: "0rem",
                 }}
               ></input>
@@ -696,7 +518,6 @@ export default function HomeScreen() {
                   marginTop: "5vh",
                   borderRadius: 10,
                   fontSize: 22,
-                  textAlign: "center",
                   borderWidth: "0rem",
                 }}
               ></input>
@@ -745,100 +566,58 @@ export default function HomeScreen() {
         }}
       >
         <div className="box_header" style={{}}>
-          <img
-            src={sstclogo}
-            alt=""
-            width={60}
-            height={50}
-            style={{
-              marginLeft: 20,
-            }}
-          ></img>
-
-          <span
-            style={{
-              fontSize: 20,
-            }}
-          >
-            𝗦𝗛𝗥𝗜 𝗦𝗛𝗔𝗡𝗞𝗔𝗥𝗔𝗖𝗛𝗔𝗥𝗬𝗔 <br />
-            𝗧𝗘𝗖𝗛𝗡𝗜𝗖𝗔𝗟 𝗖𝗔𝗠𝗣𝗨𝗦
-          </span>
-
+          <img src={sstclogo} alt="" width={255} height={47} />
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               margin: "auto",
               justifyContent: "space-between",
               fontSize: 18,
             }}
           >
-            <span
+            <FontAwesomeIcon
+              icon={faHouse}
+              className="navbar_items"
               style={{
                 color: activeTab === "home" ? "white" : "black",
-                marginLeft: 400,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "home" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
+                marginLeft: "50rem",
               }}
               onClick={() => handleClick("home")}
-            >
-              Home
-            </span>
+            />
 
             <span
-              style={{
-                color: activeTab === "faculty" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "faculty" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "faculty" ? "white" : "black" }}
               onClick={() => handleClick("faculty")}
             >
-              Faculty
+              𝐅𝐚𝐜𝐮𝐥𝐭𝐲
             </span>
 
             <span
-              style={{
-                color: activeTab === "test" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "test" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "test" ? "white" : "black" }}
               onClick={() => handleClick("test")}
             >
-              Online test series
+              𝐎𝐧𝐥𝐢𝐧𝐞 𝐓𝐞𝐬𝐭 𝐒𝐞𝐫𝐢𝐞𝐬
             </span>
+
             <span
-              style={{
-                color: activeTab === "access" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "access" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "access" ? "white" : "black" }}
               onClick={() => handleClick("access")}
             >
-              Quick access
+              𝐐𝐮𝐢𝐜𝐤 𝐀𝐜𝐜𝐞𝐬𝐬
             </span>
-            <img
-              src={searchlogo}
-              alt=""
-              width={60}
+
+            <FontAwesomeIcon
+              className="navbar_items"
+              icon={faSearch}
+              width={50}
               height={50}
-              style={{
-                marginLeft: 50,
-              }}
-            ></img>
+            />
           </div>
         </div>
-        <text>FACULTY</text>
+        <text>𝐅𝐚𝐜𝐮𝐥𝐭𝐲</text>
       </div>
     );
   } else if (activeTab === "access") {
@@ -853,95 +632,55 @@ export default function HomeScreen() {
         }}
       >
         <div className="box_header" style={{}}>
-          <img
-            src={sstclogo}
-            alt=""
-            width={60}
-            height={50}
-            style={{
-              marginLeft: 20,
-            }}
-          ></img>
-
-          <span
-            style={{
-              fontSize: 20,
-            }}
-          >
-            𝗦𝗛𝗥𝗜 𝗦𝗛𝗔𝗡𝗞𝗔𝗥𝗔𝗖𝗛𝗔𝗥𝗬𝗔 <br />
-            𝗧𝗘𝗖𝗛𝗡𝗜𝗖𝗔𝗟 𝗖𝗔𝗠𝗣𝗨𝗦
-          </span>
-
+          <img src={sstclogo} alt="" width={255} height={47} />
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               margin: "auto",
               justifyContent: "space-between",
               fontSize: 18,
             }}
           >
-            <span
+            <FontAwesomeIcon
+              icon={faHouse}
+              className="navbar_items"
               style={{
                 color: activeTab === "home" ? "white" : "black",
-                marginLeft: 400,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "home" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
+                marginLeft: "50rem",
               }}
               onClick={() => handleClick("home")}
-            >
-              Home
-            </span>
+            />
+
             <span
-              style={{
-                color: activeTab === "faculty" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "faculty" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "faculty" ? "white" : "black" }}
               onClick={() => handleClick("faculty")}
             >
-              Faculty
+              𝐅𝐚𝐜𝐮𝐥𝐭𝐲
             </span>
+
             <span
-              style={{
-                color: activeTab === "test" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "test" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "test" ? "white" : "black" }}
               onClick={() => handleClick("test")}
             >
-              Online test series
+              𝐎𝐧𝐥𝐢𝐧𝐞 𝐓𝐞𝐬𝐭 𝐒𝐞𝐫𝐢𝐞𝐬
             </span>
+
             <span
-              style={{
-                color: activeTab === "access" ? "white" : "black",
-                marginLeft: 50,
-                cursor: "pointer",
-                backgroundColor:
-                  activeTab === "access" ? "#2432AE" : "transparent",
-                padding: "5px 10px",
-              }}
+              className="navbar_items"
+              style={{ color: activeTab === "access" ? "white" : "black" }}
               onClick={() => handleClick("access")}
             >
-              Quick access
+              𝐐𝐮𝐢𝐜𝐤 𝐀𝐜𝐜𝐞𝐬𝐬
             </span>
-            <img
-              src={searchlogo}
-              alt=""
-              width={60}
+
+            <FontAwesomeIcon
+              className="navbar_items"
+              icon={faSearch}
+              width={50}
               height={50}
-              style={{
-                marginLeft: 50,
-              }}
-            ></img>
+            />
           </div>
         </div>
         <text>ACCESS</text>
