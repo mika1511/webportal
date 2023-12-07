@@ -60,7 +60,7 @@
   width: 16rem;
 }
 .navbar_items {
-  margin-left: 5rem;
+  margin-left: 7rem;
   color: rgb(0, 0, 0);
   font: weight(30px);
 }
@@ -203,13 +203,14 @@ body {
   margin: 25px !important;
 }
 .info2 {
-  height: 63vh;
+  height: 67vh;
   width: 45vw;
   margin-left: 25px;
   background-color: lightblue;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .info2-text {
   flex: 1;

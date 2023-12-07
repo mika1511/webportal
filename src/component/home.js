@@ -15,8 +15,6 @@ import sideimg from "./../sideimg.png";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-import { withTheme } from "@emotion/react";
 import white from "./../white.jpg";
 
 async function tryLogin(passwd) {
@@ -31,13 +29,13 @@ async function tryLogin(passwd) {
   }
 }
 
-async function LoginFx(passwd) {
-  const res = await tryLogin(passwd);
-  if (res) {
-    return true;
-  }
-  return false;
-}
+// async function LoginFx(passwd) {
+//   const res = await tryLogin(passwd);
+//   if (res) {
+//     return true;
+//   }
+//   return false;
+// }
 
 export default function HomeScreen() {
   const [inputPwd, setInputPwd] = useState("");
@@ -59,25 +57,25 @@ export default function HomeScreen() {
   const [isShown, setIsShown] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
-  useEffect(() => {
-    const text = "WELCOME TO SSTC";
-    let i = 0;
+  // useEffect(() => {
+  //   const text = "WELCOME TO SSTC";
+  //   let i = 0;
 
-    const typeText = () => {
-      if (i < text.length) {
-        setTypingText((prevText) => prevText + text.charAt(i));
-        i++;
-      } else {
-        setIsTypingComplete(true);
-      }
-    };
+  //   const typeText = () => {
+  //     if (i < text.length) {
+  //       setTypingText((prevText) => prevText + text.charAt(i));
+  //       i++;
+  //     } else {
+  //       setIsTypingComplete(true);
+  //     }
+  //   };
 
-    const typingInterval = setInterval(typeText, 100);
+  //   const typingInterval = setInterval(typeText, 100);
 
-    return () => {
-      clearInterval(typingInterval);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(typingInterval);
+  //   };
+  // }, []);
 
   const location = useLocation(); // Access current URL
   const navigate = useNavigate();
@@ -148,7 +146,6 @@ export default function HomeScreen() {
           overflowX: "hidden",
           flex: 1,
           backgroundImage: "#fff",
-
         }}
       >
         <div className="box_header" style={{}}>
@@ -166,7 +163,7 @@ export default function HomeScreen() {
               className="navbar_items"
               style={{
                 color: activeTab === "home" ? "white" : "black",
-                marginLeft: "50rem",
+                marginLeft: "30rem",
               }}
               onClick={() => handleClick("home")}
             />
@@ -270,7 +267,12 @@ export default function HomeScreen() {
         <div style={{ display: "flex" }}>
           <br />
           <div className="info2">
-            <text style={{ color: "grey",marginLeft: "-44vw", fontSize: "15px",}}>●</text>
+            <text
+              className="dot"
+              style={{ color: "grey", marginLeft: "-43vw", fontSize: "16px" }}
+            >
+              ●
+            </text>
             <div
               style={{
                 paddingLeft: "28px",
@@ -279,7 +281,10 @@ export default function HomeScreen() {
                 paddingTop: "5px",
               }}
             >
-              <text className="info2-text" style={{textAlign: "left",alignItems: "flex-start"}}>
+              <text
+                className="info2-text"
+                
+              >
                 The department of Computer Science and Engineering at the Shri
                 shankaracharya technical campus promotes innovation-centric
                 education and performs cutting-edge research. The department
@@ -441,8 +446,6 @@ export default function HomeScreen() {
                 height: "50vh",
                 backgroundColor: "#94B9FF",
                 borderRadius: 30,
-
-                //opacity: "80%",
               }}
             >
               <text style={{ fontSize: 20, color: "white" }}>
